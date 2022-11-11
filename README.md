@@ -22,6 +22,17 @@
 
 
 
+# WireFrame 
+
+
+![image](https://user-images.githubusercontent.com/98183485/201392754-9a29acfb-2d25-4c96-ad49-758292f372fe.png)
+
+<br>
+<br>
+<br>
+
+![image](https://user-images.githubusercontent.com/98183485/201392821-09c8931b-2455-4f4f-97da-90b7166a46a2.png)
+
 
 
 
