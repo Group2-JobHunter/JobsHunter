@@ -32,6 +32,16 @@
 
 ![image](https://user-images.githubusercontent.com/98183485/201392821-09c8931b-2455-4f4f-97da-90b7166a46a2.png)
 
+<br>
+<br>
+
+
+# Data Modeling 
+
+<br>
+
+![image](https://user-images.githubusercontent.com/98183485/201403758-b99a8e7d-97c5-4193-ab21-d59c81ee097e.png)
+
 
 
 
