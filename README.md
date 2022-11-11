@@ -1,5 +1,3 @@
-# JobsHunter
-
 ## Team : 
 
 <br>
