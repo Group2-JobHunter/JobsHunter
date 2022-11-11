@@ -20,14 +20,13 @@
 
 > Jobs Hunter is a web scrapper project made in python, it purpose to grab the job posters in different well known websites, and it filters the results based on the configuration that the user provide.
 
-
+<br>
 
 # WireFrame 
 
 
 ![image](https://user-images.githubusercontent.com/98183485/201392754-9a29acfb-2d25-4c96-ad49-758292f372fe.png)
 
-<br>
 <br>
 <br>
 
