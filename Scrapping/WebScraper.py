@@ -4,13 +4,13 @@ from selenium.webdriver.common.by import By
 
 
 class WebScraper(ABC):
-    def __init__(self, path):
+    def __init__(self, path,headless):
         options = webdriver.ChromeOptions()
         options.add_experimental_option("detach", True)
         user_agent = (
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
         )
-        # options.headless = True
+        options.headless = headless
         options.add_argument(f"user-agent={user_agent}")
         options.add_argument("--window-size=1920,1080")
         options.add_argument("--ignore-certificate-errors")
