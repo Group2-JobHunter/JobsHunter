@@ -58,8 +58,6 @@ class LinkedIn(WebScraper):
         
         for job in jobs_lis:
             try:
-                 
-
                 job.click()
                 time.sleep(1.45)
                 driver = self.driver
@@ -69,7 +67,6 @@ class LinkedIn(WebScraper):
                 page_source = driver.page_source
                 soup = BeautifulSoup(page_source, 'html.parser')
                 jobDesc = soup.find('div' , class_ = "show-more-less-html__markup" )
-
                 skills = len(self.skills)
                 result = self.filter(str(jobDesc))
 

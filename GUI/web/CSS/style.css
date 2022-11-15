@@ -1,0 +1,322 @@
+body {
+  background-color: #303245;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    font-family: 'Roboto Mono',monospace;
+  }
+
+  .mainContainer{
+    display: flex;
+    flex-direction: row;
+    gap: 5vw;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    min-height: 75vh;
+    padding-top: 5vh;
+
+
+  }
+  
+
+
+ 
+/************ Skills Container ********************/
+
+.skillsContainer{
+  background-color: #15172b;
+  display: flex;
+  flex-direction: column;
+  min-width: 25vw;
+  max-width: 25vw;
+  min-height: 70vh;
+  max-height: 70vh;
+  padding: 2vw;
+  text-align: left;
+  gap: 2vh;
+  overflow: hidden;
+  border-radius: 2vw;
+  }
+  .skillsContainer h1 {
+    color: white;
+  }
+
+.skillsForm{
+  
+  border-radius: 20px;
+  width: 15vw;
+}
+
+  .skillsList   {
+    background-color: #15172b;
+    border-color: white;
+    border-radius: 20px;
+    border-width: 2px;
+    text-decoration: none;
+    padding: 2vw;
+    padding-left: 0;
+    text-align: left;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    max-height: 25vh;
+  }
+  
+  /* Style the list items */
+  ul li ,#liLable{
+    cursor: pointer;
+    position: relative;
+    padding: 12px 8px 12px 40px;
+    list-style-type: none;
+    background-color: #15172b;
+    color: white;
+    font-size: 18px;
+    transition: 0.2s;
+    text-align: start;
+    
+
+    
+    /* make the list items unselectable */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+  }
+
+  ul::-webkit-scrollbar { 
+    display: none;
+  }
+
+  .skillsList li {
+    margin: 5px;
+    border-width: 5px;
+    border-color: white;
+  }
+  
+  /* Set all odd list items to a different color (zebra-stripes) */
+ 
+  
+  /* Darker background-color on hover */
+  ul li:hover {
+    background: #ddd;
+  }
+  .close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 12px 16px 12px 16px;
+  }
+  
+  .close:hover {
+    background-color: #f44336;
+    color: white;
+  }
+
+  /************* Location ****************/
+
+  .titleContainer {
+    background-color: #15172b;
+    display: flex;
+    flex-direction: column;
+    min-width: 25vw;
+    max-width: 25vw;
+    min-height: 70vh;
+    max-height: 70vh;
+    text-align: left;
+    padding: 2vw;
+    gap: 5.5vh;
+    justify-content: space-between;
+    color:  white;
+    border-radius: 2vw;
+  }
+
+
+  .blink_me {
+    animation: blinker 1s linear infinite;
+  }
+  
+  @keyframes blinker {
+    50% {
+      opacity: 0;
+    }
+  }
+
+  .lbl {
+    color:  white;
+    font-size: 1.5vw;
+  }
+ 
+
+  /*
+  .optionsContainer {
+
+    display: flex;
+    flex-direction: column;
+    gap: 5.5vh;
+  
+  }
+
+
+
+  /* <select> styles */
+ 
+
+select {
+  /* Reset */
+  appearance: none;
+  border: 0;
+  outline: 0;
+  font: inherit;
+  /* Personalize */
+  width: 15vw;
+  height: 4vh;
+  padding: 0 4em 0 1em;
+  background-color: #15172b;
+  color: white;
+  border-radius: 1vw;
+  box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  background: url(https://upload.wikimedia.org/wikipedia/commons/9/9d/Caret_down_font_awesome_whitevariation.svg)
+  no-repeat right 0.8em center / 1.4em,
+linear-gradient(to left, rgba(255, 255, 255, 0.3) 3em,  rgba(255, 255, 255, 0.2) 3em);
+}
+
+select option {
+   background-color: #15172b;
+   padding: 1vw;
+   margin: 16px;
+   font-size: 1vw;
+   font-family: 'Courier New', Courier, monospace;
+}
+
+  .form {
+    background-color: #15172b;
+    border-radius: 20px;
+  
+    box-sizing: border-box;
+    height: 550px;
+    padding: 20px;
+    width: 80vw;
+    display: none;
+  }
+  
+  .title {
+    color: #eee;
+    font-family: sans-serif;
+    font-size: 36px;
+    font-weight: 600;
+    margin-top: 30px;
+  }
+  
+  .subtitle {
+    color: #eee;
+    font-family: sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 10px;
+  }
+  
+  .input-container {
+    height: 50px;
+    position: relative;
+    width: 100%;
+  }
+  
+  .ic1 {
+    margin-top: 40px;
+  }
+  
+  .ic2 {
+    margin-top: 30px;
+  }
+  
+  .input {
+    background-color: #303245;
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: #eee;
+    font-size: 18px;
+    height: 100%;
+    outline: 0;
+    padding: 4px 20px 0;
+    width: 100%;
+  }
+  
+  .cut {
+    background-color: #15172b;
+    border-radius: 10px;
+    height: 20px;
+    left: 20px;
+    position: absolute;
+    top: -20px;
+    transform: translateY(0);
+    transition: transform 200ms;
+    width: 76px;
+  }
+  
+  .cut-short {
+    width: 50px;
+  }
+  
+  .input:focus ~ .cut,
+  .input:not(:placeholder-shown) ~ .cut {
+    transform: translateY(8px);
+  }
+  
+  .placeholder {
+    color: #65657b;
+    font-family: sans-serif;
+    left: 20px;
+    line-height: 14px;
+    pointer-events: none;
+    position: absolute;
+    transform-origin: 0 50%;
+    transition: transform 200ms, color 200ms;
+    top: 20px;
+  }
+  
+  .input:focus ~ .placeholder,
+  .input:not(:placeholder-shown) ~ .placeholder {
+    transform: translateY(-30px) translateX(10px) scale(0.75);
+  }
+  
+  .input:not(:placeholder-shown) ~ .placeholder {
+    color: #808097;
+  }
+  
+  .input:focus ~ .placeholder {
+    color: #dc2f55;
+  }
+  
+  .submit {
+    background-color: #08d;
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: #eee;
+    cursor: pointer;
+    font-size: 18px;
+    height: 50px;
+    margin-top: 38px;
+    text-align: center;
+    width: 100%;
+  }
+  
+  .submit:active {
+    background-color: #06b;
+  }
+
+.search {
+  width: 15vw;
+ text-align: center;
+ margin-top: 5vh;
+}
+
+.in {
+  margin-top: 6vh;
+}
