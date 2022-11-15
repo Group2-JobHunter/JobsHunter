@@ -17,7 +17,7 @@ class Bayt (WebScraper):
     def __init__(self, path,headless,skill:list):
         super().__init__(path,headless)
         self.scroll=30
-        self.extracted_jobs={'jobtitle': [],  'location': [],'link':[],'date':[],'company':[],'descr':[]}
+        self.extracted_jobs={'jobtitle': [],  'location': [],'link':[],'date':[],'company':[],'descr':[],'match':[]}
         self.skill=skill
         self.job_title=[]
         self.company=[]
@@ -25,6 +25,7 @@ class Bayt (WebScraper):
         self.date=[]
         self.job_link=[]
         self.job_discription=[]
+        self.match_perc=[]
 
 
 
@@ -55,14 +56,14 @@ class Bayt (WebScraper):
                     job_description =self.driver.find_elements(by=By.CSS_SELECTOR, value='.card-content')
                     
                     flag = 0
-            
+                    skills_length=len(self.skill)
                     for skill in self.skill:
-                        if skill.lower() in job_description[1].text:
-                            flag = 1
+                        if skill in job_description[1].text.lower():
+                            flag += 1
                             break
 
 
-                    if flag==1 :
+                    if flag>=1 :
                     
                             company = i.find_element(by=By.CSS_SELECTOR, value='.jb-company')
                             self.company.append(company.text)
@@ -72,10 +73,12 @@ class Bayt (WebScraper):
                             self.date.append(date.text)
                             link = self.driver.current_url
                             self.job_link.append(link)
-                                    
+                                   
                             self.job_discription.append(job_description[1].text)
                             self.job_title.append(title.text)
+                            
                             self.driver.execute_script(f"window.scrollBy(0,{self.scroll})", "")
+                            self.match_perc.append(f'matched {int((flag/skills_length)*100)}%')
                             self.scroll += 20
 
                     else:
@@ -121,6 +124,7 @@ class Bayt (WebScraper):
         self.extracted_jobs['date'].append(self.date)
         self.extracted_jobs['company'].append(self.company)
         self.extracted_jobs['descr'].append(self.job_discription)
+        self.extracted_jobs['match'].append(self.match_perc)
 
         return self.extracted_jobs
 
@@ -134,9 +138,10 @@ class Bayt (WebScraper):
 
 
 
-bytt=Bayt(r'C:\Users\ibrah\Downloads\chromedriver_win32 (1)\chromedriver',False,['python','sql','React','node','CSS'])
-bytt.loadWebsite('jordan','web developer')
+bytt=Bayt(r'C:\Users\ibrah\Downloads\chromedriver_win32 (1)\chromedriver',False,['react'])
+bytt.loadWebsite('jordan','moderator')
 bytt.extractor()
 bytt.parser()
 
-print(bytt.extracted_jobs)
+data=bytt.extracted_jobs
+print(data)
