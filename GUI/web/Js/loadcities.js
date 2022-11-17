@@ -29,6 +29,7 @@ function loadCountries(countryName) {
 
 function loadCities(cityname) {
   selectedCity = cityname;
+  ISCityLoaded = false;
 
   var path = selectedCountry + ".";
   paths = path.split(".");
@@ -46,13 +47,16 @@ function loadCities(cityname) {
   }
 
   // load the cities from citiesdb.js using Dot Notation.
-
+  cities = countries[cityname]["citiesNames"];
   if (ISCityLoaded == false) {
+    console.log("YES");
     document.getElementById("timeZoneSelector2").innerText = null;
-    for (let cityData in citiesNamesPath) {
+    for (let city of cities) {
       let opt = document.createElement("option");
-      opt.value = citiesNamesPath[cityData];
-      opt.innerHTML = citiesNamesPath[cityData].toUpperCase();
+      opt.value = city;
+      console.log(city);
+      city = city.replace("_", " ");
+      opt.innerHTML = city.toUpperCase();
       citySelector.appendChild(opt);
     }
 

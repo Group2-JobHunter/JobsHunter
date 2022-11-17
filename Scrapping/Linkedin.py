@@ -3,6 +3,7 @@ import time
 import pyshorteners as s
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.by import By
+# improt Database
 
 class LinkedIn(WebScraper):
 
@@ -13,12 +14,19 @@ class LinkedIn(WebScraper):
         self.extractedJobs = []
         self.filteredJobs = []
         self.parsedJobs = []
-         
+        
         location  = location.replace(" " , '%20')
         jobTitle  = jobTitle.replace(" " , '%20')
         self.url = f"https://www.linkedin.com/jobs/search?keywords={jobTitle}&location={location}"
 
         self.skills = skills
+
+        # self.DB = Database()
+
+
+        self.loadWebsite()
+        self.extractor()
+ 
     
 
     def scrollWebPage(self):
@@ -91,7 +99,7 @@ class LinkedIn(WebScraper):
                 print (link)
                 
                 print ()
-
+                # self.DB.SaveToDb
             except Exception as e:
                 print(f"Error Found : {title} in {company} ")
                 print(e)
@@ -128,8 +136,5 @@ class LinkedIn(WebScraper):
 
 
 
-x = LinkedIn("../chromedriver", 'software developer' , 'Jordan, Amman', ['Nodejs' , 'OOP' , 'CSS' , "HTML" , "Git" , "React" , "Mysql" , "Java" , "Python" , "API" , "REst", "Asp.Net", "C#"])
+x=  LinkedIn("../chromedriver", 'software developer' , 'Jordan, Amman', ['Nodejs' , 'OOP' , 'CSS' , "HTML" , "Git" , "React" , "Mysql" , "Java" , "Python" , "API" , "REst", "Asp.Net", "C#"])
 
-x.loadWebsite()
-x.extractor()
- 

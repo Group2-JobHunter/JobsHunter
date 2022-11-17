@@ -30,12 +30,16 @@
       </div>
 
       <label class="lbl"> Location </label>
-      <select id="timeZoneSelector1"></select>
+      <select id="timeZoneSelector1" onchange="loadCities(this.value)"></select>
       <select id="timeZoneSelector2"></select>
 
       <label class="lbl"> Level </label>
 
-      <select id="levels" onchange="levelSelection()"></select>
+      <select id="levels" onchange="levelSelection()">
+        <option value="none" selected disabled hidden>
+          Select an Option
+        </option>
+      </select>
       <!-- </form> -->
     </div>
 

@@ -1,4 +1,4 @@
-document.addEventListener("contextmenu", (event) => event.preventDefault());
+//document.addEventListener("contextmenu", (event) => event.preventDefault());
 resizeTo(screen.width, screen.height);
 
 let searchData = {
@@ -32,7 +32,7 @@ async function start() {
 
   await eel.get_search_data(searchData)();
   console.log(test);
-  window.location.assign("./table.html");
+  //window.location.assign("./table.html");
 }
 
 function saveSotarge() {
