@@ -28,21 +28,39 @@ result = []
 
 isBusy = False
  
-# def start_scrapping(data):
+ def start_scrapping(data):
 
-#     location = data.location
-#     keyworsd = data.keywords
-#     country = data.country
-#     city = data.city
+        # title = data.title
+        # keyworsd = data.keywords
+        # country = data.country
+        # city = data.city
 
-    
 
-#     linked = Linked(data)
-#     bayt = bayt(data)
-#     gulf = gulf(data)
-#     nukkri = nukkri(data)
-#     while (linked.isBusy or bayt.isBusy or gulf.isBusy or nukkri.isBusy):
-#         pass
+        # threads = []
+
+
+
+
+        # t = Thread(...)
+        # threads.append(t)
+
+
+
+        # # Start all threads
+        # for x in threads:
+        #     x.start()
+
+        # # Wait for all of them to finish
+        # for x in threads:
+        #     x.join()
+
+
+
+#     linkedin = Linkedin(title,location,skills)
+#     bayt = bayt(title,location,skills)
+#     gulf = gulf(title,location,skills)
+#     nukkri = nukkri(title,location,skills)
+
 #     prepare_results(linked.filterdjobs)
 #     prepare_results(bayt.filterdjobs)
 #     prepare_results(gulf.filterdjobs)
