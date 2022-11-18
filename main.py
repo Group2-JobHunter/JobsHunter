@@ -1,35 +1,38 @@
 import eel
+import time
+from threading import Thread
 
+result =[]
 
+def test1 ():
+    global result
+    for x in range(10):
+        time.sleep(1)
+        temp = f"test1 {x}"
+        result.append(temp)
+
+def test2 ():
+    global result
+    for x in range(10):
+        time.sleep(1)
+        temp = f"test2 {x}"
+        result.append(temp)
 
 @eel.expose
+def startScrapping():
+    t1 = Thread(target=test1, args=())
+    t2 = Thread(target=test2, args=())
+    t1.start()
+    t2.start()
 
-def get_python():
+    t1.join()
+    t2.join()
+    global result
+    return result
     
-   return ['title','job','a','b','d']
-
-
-search_data = {}
-
-
-@eel.expose
-def get_search_data(data):
-    global search_data
-    search_data = data
-
-result = []
-
-# def prepare_results(list):
-#     global result
-
-#     for job in list:
-#         result.append(job)
-
-
-isBusy = False
- 
- def start_scrapping(data):
-
+def start_scrapping(data):
+        pass
+"""
         # title = data.title
         # keyworsd = data.keywords
         # country = data.country
@@ -66,17 +69,7 @@ isBusy = False
 #     prepare_results(gulf.filterdjobs)
 #     prepare_results(nukkri.filterdjobs)
 #     return result
-
-
-
- 
-    
-    
-
-
-    
-
-
+"""
 
 
 
