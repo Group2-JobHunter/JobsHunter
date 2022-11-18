@@ -28,11 +28,11 @@ async function start() {
   console.log(searchData);
   localStorage.setItem("data", JSON.stringify(searchData));
   //   console.log("test");
-  let test = await eel.get_python()();
+  // let test = await eel.get_python()();
 
-  await eel.get_search_data(searchData)();
-  console.log(test);
-  //window.location.assign("./table.html");
+  //await eel.get_search_data(searchData)();
+  //console.log(test);
+  window.location.assign("./table.html");
 }
 
 function saveSotarge() {
@@ -133,5 +133,3 @@ if (data != null) {
     createKeyword(key);
   }
 }
-
-//init_List();
