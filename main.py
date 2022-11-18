@@ -1,76 +1,54 @@
 import eel
 import time
 from threading import Thread
+ 
+from Scrapping.Linkedin import LinkedIn
+from Scrapping.bayt import Bayt
 
-result =[]
+results =[]
 
-def test1 ():
-    global result
-    for x in range(10):
-        time.sleep(1)
-        temp = f"test1 {x}"
-        result.append(temp)
+#f"LinkedIn,{title},{company},{date},{location},{link},{title}"
 
-def test2 ():
-    global result
-    for x in range(10):
-        time.sleep(1)
-        temp = f"test2 {x}"
-        result.append(temp)
+title = keywords = country = city = ""
 
 @eel.expose
-def startScrapping():
-    t1 = Thread(target=test1, args=())
-    t2 = Thread(target=test2, args=())
-    t1.start()
-    t2.start()
-
-    t1.join()
-    t2.join()
-    global result
-    return result
-    
-def start_scrapping(data):
-        pass
-"""
-        # title = data.title
-        # keyworsd = data.keywords
-        # country = data.country
-        # city = data.city
+def setSearch_data(data):
+    global title , keywords , country , city
+    title = data['title']
+    keywords = data['keywords']
+    country = data['country']
+    city = data['city']
 
 
-        # threads = []
+@eel.expose
+def start_scrapping():
+        global results
+        results = []
+        global title , keywords , country , city
+
+        print(title , keywords , country , city)
+
+        linkedin = LinkedIn(title,city,country,keywords)
+        bayt = Bayt(title,country,keywords)
 
 
+        print ("Scraping Started")
 
+        t1 = Thread(target=linkedin.start, args=())
+        t2 = Thread(target=bayt.start, args=())
+        # t1.start()
+        t2.start()
+        # t1.join()
+        t2.join()
 
-        # t = Thread(...)
-        # threads.append(t)
+        result_linkedin = linkedin.filteredJobs
+        result_bayt = bayt.filteredJobs
 
+        print ("Scraping Finished")
 
-
-        # # Start all threads
-        # for x in threads:
-        #     x.start()
-
-        # # Wait for all of them to finish
-        # for x in threads:
-        #     x.join()
-
-
-
-#     linkedin = Linkedin(title,location,skills)
-#     bayt = bayt(title,location,skills)
-#     gulf = gulf(title,location,skills)
-#     nukkri = nukkri(title,location,skills)
-
-#     prepare_results(linked.filterdjobs)
-#     prepare_results(bayt.filterdjobs)
-#     prepare_results(gulf.filterdjobs)
-#     prepare_results(nukkri.filterdjobs)
-#     return result
-"""
-
+        results = [*result_linkedin, *result_bayt]
+        print(results)
+        return results
 
 
 eel.init('GUI/web')
