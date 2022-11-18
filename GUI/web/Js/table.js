@@ -1,44 +1,3 @@
-function User(jobTitil, Date, Skills, Level, source) {
-  this.website = "Test";
-  this.jobTitil = jobTitil;
-  this.date = Date;
-  this.Skills = Skills;
-  this.Level = Level;
-  this.source = source;
-}
-
-let myArr = [
-  new User(
-    "Leonardo",
-    "30 jan",
-    "Santorini",
-    "mid",
-    "https://blog.codepen.io/documentation/preview-template/"
-  ),
-  new User("Edoardo", "30 jan", "Monaco", "hige", "https://blog"),
-  new User(
-    "Nicole",
-    "30 jan ",
-    "Milano",
-    "good",
-    "https://blog.codepen.io/documentation/preview-template/"
-  ),
-  new User(
-    "Jasmine",
-    "30 jan",
-    "Los Angeles",
-    "bad",
-    "https://blog.codepen.io/"
-  ),
-  new User(
-    "Emily",
-    "30 jan",
-    "San Francisco",
-    "very good",
-    "https://blog.codepen.io/documentation/"
-  ),
-];
-
 function createButtons(url) {
   let td = document.createElement("td");
   let button = document.createElement("button");
@@ -57,27 +16,39 @@ function hideLoader() {
 }
 
 function initTable(data) {
-  let tableColums = ["Source", "Title", "Date", "Matching", "Level", "Poster"];
+  let tableColums = [
+    "Source",
+    "Title",
+    "Date",
+    "Matching",
+    "city",
+    "country",
+    "Level",
+    "Poster",
+  ];
   let row = document.createElement("tr");
 
   tableColums.map((col) => {
     row.innerHTML += `<th>${col}</th>`;
   });
   document.querySelector("#myTable thead").append(row);
-
   data.forEach((element) => {
     let rowData = document.createElement("tr");
-    for (const key in element) {
-      if (element[key].includes("https"))
-        rowData.appendChild(createButtons(element[key]));
-      else {
-        let td = document.createElement("td");
-        td.innerHTML = element[key];
-        rowData.appendChild(td);
-        td = null;
+    //  ("LinkedIn",title,company,date,self.city,self.country,percent,link)
+    for (let i = 0; i < element.length; i++) {
+      let key = element[i];
+      if (i == 7) {
+        rowData.appendChild(createButtons(key));
+        continue;
       }
-    }
+      if (i == 6) key = `Matched ${key} %`;
 
+      let td = document.createElement("td");
+
+      td.innerHTML = key;
+      rowData.appendChild(td);
+      td = null;
+    }
     document.querySelector("#myTable tbody").append(rowData);
   });
 }
@@ -86,10 +57,10 @@ async function work() {
   let results = null;
 
   console.log("waiting");
-  results = await eel.startScrapping()();
+  results = await eel.start_scrapping()();
   console.log(results);
   hideLoader();
-  initTable(myArr);
+  initTable(results);
 }
 
 work();

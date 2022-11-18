@@ -1,4 +1,4 @@
-from WebScraper import * 
+from .WebScraper import * 
 import time
 import pyshorteners as s
 from bs4 import BeautifulSoup
@@ -7,26 +7,34 @@ from selenium.webdriver.common.by import By
 
 class LinkedIn(WebScraper):
 
-    def __init__(self, path , jobTitle, location , skills):
-        super().__init__(path,True)
+    def __init__(self, jobTitle, city, country , skills):
+        super().__init__(True)
 
         self.page = ""
         self.extractedJobs = []
         self.filteredJobs = []
         self.parsedJobs = []
-        
+        self.city = city
+        self.country = country
+
+        location = f"{country}, {city}"
         location  = location.replace(" " , '%20')
         jobTitle  = jobTitle.replace(" " , '%20')
         self.url = f"https://www.linkedin.com/jobs/search?keywords={jobTitle}&location={location}"
 
         self.skills = skills
 
+        
+
         # self.DB = Database()
 
 
+
+ 
+    def start(self):
         self.loadWebsite()
         self.extractor()
- 
+        print("LINKEDIN FINISHED")
     
 
     def scrollWebPage(self):
@@ -75,12 +83,6 @@ class LinkedIn(WebScraper):
                 page_source = driver.page_source
                 soup = BeautifulSoup(page_source, 'html.parser')
                 jobDesc = soup.find('div' , class_ = "show-more-less-html__markup" )
-                skills = len(self.skills)
-                result = self.filter(str(jobDesc))
-
-                if (result == 0):
-                    continue
-                result = f"Matched {int((result/skills)*100)} %"
 
                 title = job.find_element(By.CLASS_NAME, "base-search-card__title").text
                 company = job.find_element(By.CLASS_NAME, "base-search-card__subtitle").text 
@@ -89,25 +91,27 @@ class LinkedIn(WebScraper):
                 link = job.find_element(By.CLASS_NAME, "base-card__full-link").get_attribute('href') 
                 link = short_.tinyurl.short(link)
 
-                print ()
-                
-                print (title)
-                print (result)
-                print (company)
-                print (location)
-                print (date)
-                print (link)
-                
-                print ()
-                # self.DB.SaveToDb
-            except Exception as e:
-                print(f"Error Found : {title} in {company} ")
-                print(e)
-                pass
-        
-         
+                len_skills = len(self.skills)
+                if len_skills == 0:
+                    job = ("LinkedIn",title,company,date,self.city,self.country,"N/A",link)
+                    self.filteredJobs.append(job)
+                else:
+                    result = self.filter(str(jobDesc))
+                    if (result == 0):
+                        continue
+                    percent = int((result/len_skills)*100)
+                    job = ("LinkedIn",title,company,date,self.city,self.country,percent,link)
+                    self.filteredJobs.append(job)
 
-    
+                print()
+                print()
+                print("LINKEDIN", title)
+                print()
+                print()
+
+            except Exception as e:
+                print(f"Error Found ")
+
     def filter(self,jobDesc):
         count = 0
         jobDesc = jobDesc.lower()
@@ -136,5 +140,5 @@ class LinkedIn(WebScraper):
 
 
 
-x=  LinkedIn("../chromedriver", 'software developer' , 'Jordan, Amman', ['Nodejs' , 'OOP' , 'CSS' , "HTML" , "Git" , "React" , "Mysql" , "Java" , "Python" , "API" , "REst", "Asp.Net", "C#"])
+#x=  LinkedIn("../chromedriver", 'software developer' , 'Jordan, Amman', ['Nodejs' , 'OOP' , 'CSS' , "HTML" , "Git" , "React" , "Mysql" , "Java" , "Python" , "API" , "REst", "Asp.Net", "C#"])
 

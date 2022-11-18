@@ -27,11 +27,10 @@ async function start() {
   searchData.city = selectedCity;
   console.log(searchData);
   localStorage.setItem("data", JSON.stringify(searchData));
-  //   console.log("test");
-  // let test = await eel.get_python()();
+  console.log("test");
+  let test = await eel.setSearch_data(searchData)();
 
-  //await eel.get_search_data(searchData)();
-  //console.log(test);
+  console.log(test);
   window.location.assign("./table.html");
 }
 
