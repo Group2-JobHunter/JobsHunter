@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 import pyshorteners as s
 from .WebScraper import * 
 from .database import *
+
 # from database import Database
 # from WebScraper import WebScraper
 
@@ -144,9 +145,9 @@ class Bayt(WebScraper):
 
 
 
-# # bytt=Bayt('moderator','jordan',['css'])
+# bytt=Bayt('moderator','jordan',['css'])
 
-# # bytt.start()
+# bytt.start()
 
 # new_data=Database()
 # print(new_data.fetch_data())
