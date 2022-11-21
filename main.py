@@ -37,16 +37,13 @@ def start_scrapping():
 
         t1 = Thread(target=linkedin.start, args=())
         t2 = Thread(target=bayt.start, args=())
-        # t1.start()
+        t1.start()
         t2.start()
-        # t1.join()
+        t1.join()
         t2.join()
-
         result_linkedin = linkedin.filteredJobs
         result_bayt = bayt.filteredJobs
-
         print ("Scraping Finished")
-
         results = [*result_linkedin, *result_bayt]
         print(results)
         return results
@@ -56,8 +53,8 @@ def start_scrapping():
 def fetch():
 
     global results
-    results=Database().fetch_data()
-    return results
+    results=Database()
+    return results.fetch_data()
 
 
 

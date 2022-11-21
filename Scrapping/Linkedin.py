@@ -3,7 +3,8 @@ import time
 import pyshorteners as s
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.by import By
-# improt Database
+from .database import *
+import datetime
 
 class LinkedIn(WebScraper):
 
@@ -20,7 +21,7 @@ class LinkedIn(WebScraper):
         location = f"{country}, {city}"
         location  = location.replace(" " , '%20')
         jobTitle  = jobTitle.replace(" " , '%20')
-        self.url = f"https://www.linkedin.com/jobs/search?keywords={jobTitle}&location={location}"
+        self.url = f"https://www.linkedin.com/jobs/search?keywords={jobTitle}&location={location}&f_TPR=r604800"
 
         self.skills = skills
 
@@ -35,7 +36,31 @@ class LinkedIn(WebScraper):
         self.loadWebsite()
         self.extractor()
         print("LINKEDIN FINISHED")
+        
+        self.exportToDB(self.filteredJobs)
     
+
+    def timeToDate(self,string : str):
+        
+        try:
+            string = string.replace('+',"")
+            string = string.replace('-',"")
+            # string = string.replace('hour',"hours")
+            # string = string.replace('minute',"minutes")
+            # string = string.replace('day',"days")
+            # string = string.replace('week',"weeks")
+            string = string.replace('/',"")
+            s = string
+            
+            parsed_s = [s.split()[:2]]
+            time_dict = dict((fmt,float(amount)) for amount,fmt in parsed_s)
+            dt = datetime.timedelta(**time_dict)
+            past_time = datetime.datetime.now() - dt
+            job_date = str(past_time).split(" ")[0]
+            print(job_date)
+            return job_date 
+        except:
+            return string
 
     def scrollWebPage(self):
         
@@ -88,8 +113,8 @@ class LinkedIn(WebScraper):
                 company = job.find_element(By.CLASS_NAME, "base-search-card__subtitle").text 
                 location = job.find_element(By.CLASS_NAME, "job-search-card__location").text  
                 date =job.find_element(By.TAG_NAME, "time").text
+                date = self.timeToDate(str(date))
                 link = job.find_element(By.CLASS_NAME, "base-card__full-link").get_attribute('href') 
-                link = short_.tinyurl.short(link)
 
                 len_skills = len(self.skills)
                 if len_skills == 0:
@@ -130,11 +155,12 @@ class LinkedIn(WebScraper):
         pass
 
     
-    def exportToDB(self):
+    def exportToDB(self,data):
         """
         saves the filtered data into the Database
         """
-        pass
+        new_data=Database()
+        new_data.save_data(data)
 
      
 
