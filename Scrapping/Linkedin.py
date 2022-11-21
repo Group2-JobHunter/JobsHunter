@@ -4,6 +4,7 @@ import pyshorteners as s
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.by import By
 # improt Database
+import datetime
 
 class LinkedIn(WebScraper):
 
@@ -20,7 +21,7 @@ class LinkedIn(WebScraper):
         location = f"{country}, {city}"
         location  = location.replace(" " , '%20')
         jobTitle  = jobTitle.replace(" " , '%20')
-        self.url = f"https://www.linkedin.com/jobs/search?keywords={jobTitle}&location={location}"
+        self.url = f"https://www.linkedin.com/jobs/search?keywords={jobTitle}&location={location}&f_TPR=r604800"
 
         self.skills = skills
 
@@ -36,6 +37,26 @@ class LinkedIn(WebScraper):
         self.extractor()
         print("LINKEDIN FINISHED")
     
+
+    def timeToDate(self,string):
+        
+        try:
+            string = string.replace('+',"")
+            string = string.reaplce('-',"")
+            string = string.reaplce('/',"")
+            
+            s = string
+            
+            parsed_s = [s.split()[:2]]
+            time_dict = dict((fmt,float(amount)) for amount,fmt in parsed_s)
+            dt = datetime.timedelta(**time_dict)
+            past_time = datetime.datetime.now() - dt
+            job_date = str(past_time).split(" ")[0]
+            print(job_date)
+            return job_date 
+        except:
+            
+            return string
 
     def scrollWebPage(self):
         
