@@ -4,6 +4,9 @@ from selenium.webdriver.common.by import By
 import pyshorteners as s
 from .WebScraper import * 
 from .database import *
+import datetime
+
+
 # from database import Database
 # from WebScraper import WebScraper
 
@@ -37,6 +40,30 @@ class Google(WebScraper):
         self.driver.get(url)
         
 
+    def timeToDate(self,string : str):
+        
+        try:
+            string = string.replace('+',"")
+            string = string.replace('-',"")
+            # string = string.replace('hour',"hours")
+            # string = string.replace('minute',"minutes")
+            # string = string.replace('day',"days")
+            # string = string.replace('week',"weeks")
+            string = string.replace('Yesterday','1 days ago')
+            string = string.replace('/',"")
+            s = string
+            
+            parsed_s = [s.split()[:2]]
+            time_dict = dict((fmt,float(amount)) for amount,fmt in parsed_s)
+            dt = datetime.timedelta(**time_dict)
+            past_time = datetime.datetime.now() - dt
+            job_date = str(past_time).split(" ")[0]
+            # print(job_date)
+            return job_date 
+        except:
+            return string
+
+
     def extractor(self):
         """
         it uses the page property to extract the relevant jobOffers properties and writes into the self.extractedJobs
@@ -48,7 +75,16 @@ class Google(WebScraper):
 
             self.scroll_into_job(i)
             i.click()
-            time.sleep(2)          
+            time.sleep(2)
+            
+            # if self.driver.find_element(By.CSS_SELECTOR,'.WbZuDe'):
+
+            #     print(self.driver.find_element(By.CSS_SELECTOR,'.WbZuDe').text)
+            #     print('clicked')
+            #     time.sleep(1)
+
+
+
 
             self.filteredJobs.append(self.get_job_information(i))
 
@@ -66,15 +102,26 @@ class Google(WebScraper):
             company=job_card.find_element(By.CSS_SELECTOR,'.vNEEBe')
             location=job_card.find_element(By.CSS_SELECTOR,'.Qk80Jf')
             source=job_card.find_element(By.CSS_SELECTOR,'.Qk80Jf ~ .Qk80Jf')
-            date=job_card.find_element(By.CSS_SELECTOR,'.KKh3md .LL4CDc')
+            source_list=source.text.split(' ')
             
-     
+            date=job_card.find_element(By.CSS_SELECTOR,'.KKh3md .LL4CDc')
+            formated_date=self.timeToDate(date.text)
+            if not any(char.isdigit() for char in formated_date):
+                formated_date=datetime.datetime.today().strftime('%Y-%m-%d')
+
             link=job_card.find_element(By.CSS_SELECTOR,'.pMhGee')
             description=self.driver.find_element(By.CSS_SELECTOR,'#tl_ditc')
-            match_perc=self.match_percatnage(description.text)
+            match_perc=int(self.match_percatnage(description.text))
+            if match_perc==0:
+                match_perc=70
+
+            
+     
+            print(source_list[1],job_title.text,company.text,formated_date,location.text,'Jordan',match_perc,link.get_attribute("href"))
+            
 
 
-            return (source.text,job_title.text,company.text,date.text,location.text,'Jordan',int(match_perc),link.get_attribute("href"))
+            return (source_list[1],job_title.text,company.text,formated_date,location.text,'Jordan',int(match_perc),link.get_attribute("href"))
             
         
 

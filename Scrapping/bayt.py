@@ -4,6 +4,8 @@ from selenium.webdriver.common.by import By
 import pyshorteners as s
 from .WebScraper import * 
 from .database import *
+import datetime
+
 
 # from database import Database
 # from WebScraper import WebScraper
@@ -26,6 +28,8 @@ class Bayt(WebScraper):
         self.loadWebsite()
         self.extractor()
         print('finish scrapping')
+        self.driver.close()
+        self.exportToDB(self.filteredJobs)
 
             
        
@@ -36,7 +40,28 @@ class Bayt(WebScraper):
         self.driver.get(url)
 
 
-
+    def timeToDate(self,string : str):
+        
+        try:
+            string = string.replace('+',"")
+            string = string.replace('-',"")
+            # string = string.replace('hour',"hours")
+            # string = string.replace('minute',"minutes")
+            # string = string.replace('day',"days")
+            # string = string.replace('week',"weeks")
+            string = string.replace('Yesterday','1 days ago')
+            string = string.replace('/',"")
+            s = string
+            
+            parsed_s = [s.split()[:2]]
+            time_dict = dict((fmt,float(amount)) for amount,fmt in parsed_s)
+            dt = datetime.timedelta(**time_dict)
+            past_time = datetime.datetime.now() - dt
+            job_date = str(past_time).split(" ")[0]
+            print(job_date)
+            return job_date 
+        except:
+            return string
 
     def extractor(self):
         """
@@ -88,8 +113,8 @@ class Bayt(WebScraper):
                         city , country = location.text.split(',')[0] , location.text.split(',')[1]
 
                         
-
-                        job = ("Bayt",title.text,company.text,date.text,city, country,percatnage,link)
+                        date = self.timeToDate(date.text)
+                        job = ("Bayt",title.text,company.text,date,city, country,percatnage,link)
                         print(job)
                         self.filteredJobs.append(job)
 
@@ -109,8 +134,7 @@ class Bayt(WebScraper):
                     continue
                 break
 
-        self.driver.close()
-        self.exportToDB(self.filteredJobs)
+
 
     def filter(self):
         """

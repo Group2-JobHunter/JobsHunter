@@ -25,6 +25,8 @@ class WebScraper(ABC):
         options.add_argument("--disable-dev-shm-usage")
         options.add_argument("--no-sandbox")
         options.add_argument("--lang=en-GB")
+        options.add_argument("log-level=2")
+       
 
         self.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
         
