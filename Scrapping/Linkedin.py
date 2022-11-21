@@ -3,7 +3,7 @@ import time
 import pyshorteners as s
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.by import By
-from database import *
+from .database import *
 import datetime
 
 class LinkedIn(WebScraper):
@@ -36,20 +36,20 @@ class LinkedIn(WebScraper):
         self.loadWebsite()
         self.extractor()
         print("LINKEDIN FINISHED")
-        self.driver.close()
+        
         self.exportToDB(self.filteredJobs)
     
 
-    def timeToDate(self,string):
+    def timeToDate(self,string : str):
         
         try:
             string = string.replace('+',"")
-            string = string.reaplce('-',"")
-            string = string.reaplce('hour',"hours")
-            string = string.reaplce('minute',"minutes")
-            string = string.reaplce('day',"days")
-            string = string.reaplce('week',"weeks")
-            string = string.reaplce('/',"")
+            string = string.replace('-',"")
+            # string = string.replace('hour',"hours")
+            # string = string.replace('minute',"minutes")
+            # string = string.replace('day',"days")
+            # string = string.replace('week',"weeks")
+            string = string.replace('/',"")
             s = string
             
             parsed_s = [s.split()[:2]]
@@ -115,7 +115,6 @@ class LinkedIn(WebScraper):
                 date =job.find_element(By.TAG_NAME, "time").text
                 date = self.timeToDate(str(date))
                 link = job.find_element(By.CLASS_NAME, "base-card__full-link").get_attribute('href') 
-                link = short_.tinyurl.short(link)
 
                 len_skills = len(self.skills)
                 if len_skills == 0:

@@ -23,9 +23,9 @@ class Database():
         # Database.db.close()
 
     def fetch_data(self):
-      
+        
         Database.cr.execute('select * from Jobs ')
         results = Database.cr.fetchall()
-        Database.db.close()
+        #Database.db.close()
 
         return results
