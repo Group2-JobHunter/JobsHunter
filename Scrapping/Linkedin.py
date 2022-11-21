@@ -3,7 +3,7 @@ import time
 import pyshorteners as s
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.by import By
-# improt Database
+from database import *
 import datetime
 
 class LinkedIn(WebScraper):
@@ -36,6 +36,8 @@ class LinkedIn(WebScraper):
         self.loadWebsite()
         self.extractor()
         print("LINKEDIN FINISHED")
+        self.driver.close()
+        self.exportToDB(self.filteredJobs)
     
 
     def timeToDate(self,string):
@@ -43,8 +45,11 @@ class LinkedIn(WebScraper):
         try:
             string = string.replace('+',"")
             string = string.reaplce('-',"")
+            string = string.reaplce('hour',"hours")
+            string = string.reaplce('minute',"minutes")
+            string = string.reaplce('day',"days")
+            string = string.reaplce('week',"weeks")
             string = string.reaplce('/',"")
-            
             s = string
             
             parsed_s = [s.split()[:2]]
@@ -55,7 +60,6 @@ class LinkedIn(WebScraper):
             print(job_date)
             return job_date 
         except:
-            
             return string
 
     def scrollWebPage(self):
@@ -109,6 +113,7 @@ class LinkedIn(WebScraper):
                 company = job.find_element(By.CLASS_NAME, "base-search-card__subtitle").text 
                 location = job.find_element(By.CLASS_NAME, "job-search-card__location").text  
                 date =job.find_element(By.TAG_NAME, "time").text
+                date = self.timeToDate(str(date))
                 link = job.find_element(By.CLASS_NAME, "base-card__full-link").get_attribute('href') 
                 link = short_.tinyurl.short(link)
 
@@ -151,11 +156,12 @@ class LinkedIn(WebScraper):
         pass
 
     
-    def exportToDB(self):
+    def exportToDB(self,data):
         """
         saves the filtered data into the Database
         """
-        pass
+        new_data=Database()
+        new_data.save_data(data)
 
      
 
