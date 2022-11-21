@@ -9,7 +9,7 @@ class WebScraper(ABC):
     def __init__(self,headless):
         options = Options()
         user_agent = (
-                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+                    'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
         )
         options.headless = headless
         options.add_experimental_option("detach", True)
@@ -24,6 +24,7 @@ class WebScraper(ABC):
         options.add_argument("--disable-gpu")
         options.add_argument("--disable-dev-shm-usage")
         options.add_argument("--no-sandbox")
+        options.add_argument("--lang=en-GB")
         options.add_argument("log-level=2")
        
 

@@ -5,6 +5,7 @@ from threading import Thread
 from Scrapping.Linkedin import LinkedIn
 from Scrapping.bayt import Bayt
 from Scrapping.database import Database
+from Scrapping.google import Google
 
 results =[]
 
@@ -31,20 +32,25 @@ def start_scrapping():
 
         linkedin = LinkedIn(title,city,country,keywords)
         bayt = Bayt(title,country,keywords)
+        google=Google(title,city,keywords)
 
 
         print ("Scraping Started")
 
         t1 = Thread(target=linkedin.start, args=())
         t2 = Thread(target=bayt.start, args=())
+        t3 = Thread(target=google.start, args=())
         t1.start()
         t2.start()
+        t3.start()
         t1.join()
         t2.join()
+        t3.join()
         result_linkedin = linkedin.filteredJobs
         result_bayt = bayt.filteredJobs
+        result_google=google.filteredJobs
         print ("Scraping Finished")
-        results = [*result_linkedin, *result_bayt]
+        results = [*result_linkedin, *result_bayt,*result_google]
         print(results)
         return results
 

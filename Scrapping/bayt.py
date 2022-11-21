@@ -6,6 +6,7 @@ from .WebScraper import *
 from .database import *
 import datetime
 
+
 # from database import Database
 # from WebScraper import WebScraper
 
@@ -35,7 +36,7 @@ class Bayt(WebScraper):
     def loadWebsite(self):
 
         job_name = re.sub(r'\s+', '-', self.jb_title)
-        url = f'https://www.bayt.com/en/{self.country}/jobs/{job_name}-jobs/?options[sort][]=d'
+        url = f'https://www.bayt.com/en/{self.country}/jobs/{job_name}-jobs/?options%5Bsort%5D%5B%5D=d'
         self.driver.get(url)
 
 
@@ -48,6 +49,7 @@ class Bayt(WebScraper):
             # string = string.replace('minute',"minutes")
             # string = string.replace('day',"days")
             # string = string.replace('week',"weeks")
+            string = string.replace('Yesterday','1 days ago')
             string = string.replace('/',"")
             s = string
             
@@ -167,11 +169,11 @@ class Bayt(WebScraper):
 
 
 
-# bytt=Bayt('moderator','jordan',['css'])
+# bytt=Bayt('web developer','jordan',[])
 
 # bytt.start()
 
-# new_data=Database()
-# print(new_data.fetch_data())
+# # new_data=Database()
+# # print(new_data.fetch_data())
 
 
