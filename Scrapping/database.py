@@ -25,7 +25,7 @@ class Database():
     def fetch_data(self):
         
       
-        Database.cr.execute('select * from Jobs order by Percatnage desc , Date ')
+        Database.cr.execute('select * from Jobs ')
         results = Database.cr.fetchall()
         # Database.db.close()
 
