@@ -10,7 +10,7 @@ from .database import *
 class Google(WebScraper):
 
     def __init__(self,job_title,city,skills):
-        super().__init__(False)
+        super().__init__(True)
         self.job_title=job_title
         self.city=city
         self.skills=skills
@@ -66,7 +66,9 @@ class Google(WebScraper):
             company=job_card.find_element(By.CSS_SELECTOR,'.vNEEBe')
             location=job_card.find_element(By.CSS_SELECTOR,'.Qk80Jf')
             source=job_card.find_element(By.CSS_SELECTOR,'.Qk80Jf ~ .Qk80Jf')
-            date=job_card.find_element(By.CSS_SELECTOR,'.I2Cbhb')
+            date=job_card.find_element(By.CSS_SELECTOR,'.KKh3md .LL4CDc')
+            
+     
             link=job_card.find_element(By.CSS_SELECTOR,'.pMhGee')
             description=self.driver.find_element(By.CSS_SELECTOR,'#tl_ditc')
             match_perc=self.match_percatnage(description.text)
@@ -109,7 +111,7 @@ class Google(WebScraper):
         pass
 
   
-    def exportToDB(self):
+    def exportToDB(self,data):
         """
         saves the filtered data into the Database
         """
@@ -121,5 +123,6 @@ class Google(WebScraper):
     
 # bytt=Google('software developer','amman',['css','html'])
 
-# bytt.loadWebsite()
-# bytt.extractor()
+# bytt.start()
+
+# print(bytt.filteredJobs)
