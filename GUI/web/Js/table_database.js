@@ -55,9 +55,7 @@ function initTable(data) {
 
 async function work() {
   let results = null;
-
-  console.log("waiting");
-  results = await eel.start_scrapping()();
+  results= await eel.fetch()();   // import from data base 
   console.log(results);
   hideLoader();
   initTable(results);

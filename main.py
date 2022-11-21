@@ -4,6 +4,7 @@ from threading import Thread
  
 from Scrapping.Linkedin import LinkedIn
 from Scrapping.bayt import Bayt
+from Scrapping.database import Database
 
 results =[]
 
@@ -49,6 +50,18 @@ def start_scrapping():
         results = [*result_linkedin, *result_bayt]
         print(results)
         return results
+
+
+@eel.expose
+def fetch():
+
+    global results
+    results=Database().fetch_data()
+    return results
+
+
+
+
 
 
 eel.init('GUI/web')
