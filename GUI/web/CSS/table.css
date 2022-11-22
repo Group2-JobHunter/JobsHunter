@@ -120,3 +120,17 @@
 
 
 }
+
+#myTable tr:hover {
+  background-color: #464A52;
+-webkit-box-shadow: 0 6px 6px -6px #0E1119;
+    -moz-box-shadow: 0 6px 6px -6px #0E1119;
+         box-shadow: 0 6px 6px -6px #0E1119;
+}
+
+#myTable td:hover {
+ background-color: #6666ff;
+ color: #403E10;
+ font-weight: bold;
+
+}
