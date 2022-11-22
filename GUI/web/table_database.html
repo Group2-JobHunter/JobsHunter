@@ -6,7 +6,10 @@
   <link rel="icon" type="image/x-icon"
     href="https://www.pinclipart.com/picdir/middle/124-1241919_job-search-comments-job-icon-png-clipart.png">
   <link rel="stylesheet" href="CSS/table.css">
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="CSS/tablesort.css">
 </head>
 
 <body class="body">
@@ -21,7 +24,7 @@
       </div>
       <h1>Getting Data</h1>
     </div>
-    <table class="table table-dark table-striped " id="myTable">
+    <table class="table table-dark table-striped table-sortable " id="myTable">
       <thead>
 
       </thead>
@@ -29,15 +32,22 @@
       </tbody>
     </table>
   </div>
-  <div class="made-with-love">
-    Made with
-    <i>♥</i> by
-    <a target="_blank" href="https://github.com/Group2-JobHunter">Job Hounters</a>
+
+  <div class="github">
+
+    <i class="fa-brands fa-github fa-2x" title="Edit"></i> <a target="_blank"
+      href="https://github.com/Group2-JobHunter">
+      Job
+      Hunter </a>
+  </div>
+
+
+
 
 
   </div>
   <div class="btn-two">
-    <button onclick="newDoc()"> Back to first bage</button>
+    <button class="submit" onclick="newDoc()"> Search</button>
   </div>
   <script>
     function newDoc() {
@@ -46,6 +56,7 @@
   </script>
   <script type="text/javascript" src="/eel.js"></script>
   <script src="Js/table_database.js"></script>
+  <script src="Js/tablesort.js"></script>
 
 </body>
 

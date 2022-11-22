@@ -23,7 +23,7 @@ class Database():
     def fetch_data(self):
         
       
-        Database.cr.execute('select * from Jobs')
+        Database.cr.execute('select distinct * from Jobs')
         results = Database.cr.fetchall()
         # Database.db.close()
 

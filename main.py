@@ -9,7 +9,7 @@ from Scrapping.google import Google
 
 results =[]
 
-#f"LinkedIn,{title},{company},{date},{location},{link},{title}"
+
 
 title = keywords = country = city = ""
 
@@ -61,7 +61,6 @@ def fetch():
     global results
     results=Database()
     return results.fetch_data()
-
 
 
 

@@ -17,22 +17,19 @@ levels = document.getElementById("levels");
 let search = document.getElementById("search");
 search.addEventListener("click", start);
 
-
-
 // open tabel_database.html
 
 let database = document.getElementById("database");
-database.addEventListener("click",fetch);
-async function fetch(){
-
-  window.location.assign("./table_database.html") 
-
+database.addEventListener("click", fetch);
+async function fetch() {
+  window.location.assign("./table_database.html");
 }
-
 
 async function start() {
   let selectedCountry = coutry.options[coutry.selectedIndex].value;
   let selectedCity = city.options[city.selectedIndex].value;
+
+  if (title.value == "") return;
 
   searchData.keywords = keywords;
   searchData.title = title.value;

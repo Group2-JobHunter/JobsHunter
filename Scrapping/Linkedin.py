@@ -33,6 +33,7 @@ class LinkedIn(WebScraper):
 
  
     def start(self):
+        print("LINKEDIN STARTED")
         self.loadWebsite()
         self.extractor()
         print("LINKEDIN FINISHED")
@@ -45,10 +46,14 @@ class LinkedIn(WebScraper):
         try:
             string = string.replace('+',"")
             string = string.replace('-',"")
-            # string = string.replace('hour',"hours")
-            # string = string.replace('minute',"minutes")
-            # string = string.replace('day',"days")
-            # string = string.replace('week',"weeks")
+            string = string.replace('hour',"hours")
+            string = string.replace('minute',"minutes")
+            string = string.replace('day',"days")
+            string = string.replace('week',"weeks")
+            string = string.replace('1 month ago',"1 months ago")
+            string = string.replace('ss',"s")
+            string = string.replace('Yesterday','1 days ago')
+            string = string.replace('Just now','0 days ago')
             string = string.replace('/',"")
             s = string
             
@@ -57,7 +62,7 @@ class LinkedIn(WebScraper):
             dt = datetime.timedelta(**time_dict)
             past_time = datetime.datetime.now() - dt
             job_date = str(past_time).split(" ")[0]
-            print(job_date)
+            #print(job_date)
             return job_date 
         except:
             return string
@@ -128,14 +133,10 @@ class LinkedIn(WebScraper):
                     job = ("LinkedIn",title,company,date,self.city,self.country,percent,link)
                     self.filteredJobs.append(job)
 
-                print()
-                print()
-                print("LINKEDIN", title)
-                print()
-                print()
+
 
             except Exception as e:
-                print(f"Error Found ")
+                pass
 
     def filter(self,jobDesc):
         count = 0

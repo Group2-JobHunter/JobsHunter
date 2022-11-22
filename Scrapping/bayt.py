@@ -24,10 +24,10 @@ class Bayt(WebScraper):
         
         
     def start(self):
-        print('start scrapping')
+        print('BAYT STARTED')
         self.loadWebsite()
         self.extractor()
-        print('finish scrapping')
+        print('BAYT FINISHED')
         self.driver.close()
         self.exportToDB(self.filteredJobs)
 
@@ -45,10 +45,13 @@ class Bayt(WebScraper):
         try:
             string = string.replace('+',"")
             string = string.replace('-',"")
-            # string = string.replace('hour',"hours")
-            # string = string.replace('minute',"minutes")
-            # string = string.replace('day',"days")
-            # string = string.replace('week',"weeks")
+            string = string.replace('hour',"hours")
+            string = string.replace('minute',"minutes")
+            string = string.replace('day',"days")
+            string = string.replace('week',"weeks")
+            string = string.replace('1 month ago',"1 months ago")
+            string = string.replace('ss',"s")
+            string = string.replace('Just now','0 days ago')
             string = string.replace('Yesterday','1 days ago')
             string = string.replace('/',"")
             s = string
@@ -58,7 +61,7 @@ class Bayt(WebScraper):
             dt = datetime.timedelta(**time_dict)
             past_time = datetime.datetime.now() - dt
             job_date = str(past_time).split(" ")[0]
-            print(job_date)
+             
             return job_date 
         except:
             return string
@@ -115,7 +118,7 @@ class Bayt(WebScraper):
                         
                         date = self.timeToDate(date.text)
                         job = ("Bayt",title.text,company.text,date,city, country,percatnage,link)
-                        print(job)
+                         
                         self.filteredJobs.append(job)
 
                         

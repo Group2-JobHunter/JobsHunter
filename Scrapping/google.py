@@ -23,10 +23,10 @@ class Google(WebScraper):
 
 
     def start(self):
-        print('google started')
+        print('GOOGLE STARTED')
         self.loadWebsite()
         self.extractor()
-        print('google finished')
+        print('GOOGLE FINISHED')
 
 
 
@@ -34,7 +34,7 @@ class Google(WebScraper):
     def loadWebsite(self):
         job_name=re.sub(r'\s+', '+', self.job_title)
         skills='+'.join(self.skills)
-        url=f'https://www.google.com/search?q={job_name}+{self.city}+{skills}&sxsrf=ALiCzsZIFgfwQJGi-qZoG7lhKz50z4Qf_A:1668968226798&ei=Im96Y-KCMNSJkdUPxY2TkAg&oq=jobs&gs_lcp=Cgxnd3Mtd2l6LXNlcnAQARgAMgQIIxAnMgQIIxAnMgcIABDJAxBDMgUIABCRAjIECAAQQzIECAAQQzIECAAQQzIECAAQQzIECAAQQzIECAAQQzoHCC4QsQMQQzoKCC4QsQMQgwEQQzoECC4QQzoHCC4Q1AIQQzoICAAQgAQQsQM6BQgAEIAEOgsILhCABBCxAxCDAToOCC4QgAQQsQMQgwEQ1AI6CAguELEDEIMBOhYILhCDARCvARDHARDUAhCxAxCABBBDOgoIABCABBCHAhAUSgQIQRgASgQIRhgAUABYnwxgmB9oAXAAeAGAAekEiAGcD5IBCTItMi4xLjAuMpgBAKABAcABAQ&sclient=gws-wiz-serp&ibp=htl;jobs&sa=X&ved=2ahUKEwj7pPaWr737AhW9QUEAHSwTBTgQutcGKAF6BAgIEAY#fpstate=tldetail&htivrt=jobs&htidocid=gF9sc0GquhcAAAAAAAAAAA%3D%3D'
+        url=f'https://www.google.com/search?q={job_name}+{self.city}&ibp=htl;jobs&htivrt=jobs'
         time.sleep(2)
         
         self.driver.get(url)
@@ -45,11 +45,14 @@ class Google(WebScraper):
         try:
             string = string.replace('+',"")
             string = string.replace('-',"")
-            # string = string.replace('hour',"hours")
-            # string = string.replace('minute',"minutes")
-            # string = string.replace('day',"days")
-            # string = string.replace('week',"weeks")
+            string = string.replace('hour',"hours")
+            string = string.replace('minute',"minutes")
+            string = string.replace('day',"days")
+            string = string.replace('week',"weeks")
+            string = string.replace('1 month ago',"1 months ago")
+            string = string.replace('ss',"s")
             string = string.replace('Yesterday','1 days ago')
+            string = string.replace('Just now','0 days ago')
             string = string.replace('/',"")
             s = string
             
@@ -85,8 +88,13 @@ class Google(WebScraper):
 
 
 
+            try:
+                result = self.get_job_information(i)
+                if result != None:
+                    self.filteredJobs.append(result)
+            except:
+                pass
 
-            self.filteredJobs.append(self.get_job_information(i))
 
 
         self.driver.close()
@@ -113,15 +121,15 @@ class Google(WebScraper):
             description=self.driver.find_element(By.CSS_SELECTOR,'#tl_ditc')
             match_perc=int(self.match_percatnage(description.text))
             if match_perc==0:
-                match_perc=70
+                return None
 
             
      
-            print(source_list[1],job_title.text,company.text,formated_date,location.text,'Jordan',match_perc,link.get_attribute("href"))
+            #print(source_list[1],job_title.text,company.text,formated_date,location.text,'Jordan',match_perc,link.get_attribute("href"))
             
 
 
-            return (source_list[1],job_title.text,company.text,formated_date,location.text,'Jordan',int(match_perc),link.get_attribute("href"))
+            return (source_list[1],job_title.text,company.text,str(formated_date),location.text,'Jordan',int(match_perc),link.get_attribute("href"))
             
         
 
