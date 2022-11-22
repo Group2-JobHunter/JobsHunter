@@ -25,7 +25,7 @@ class WebScraper(ABC):
         self.driver = webdriver.Chrome(path, options=options)
 
         self.page = ""
-        self.extractedJobs = []
+        self.extractedJobs = {}
         self.filteredJobs = []
         self.parsedJobs = []
 
