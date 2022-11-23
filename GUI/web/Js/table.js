@@ -1,3 +1,4 @@
+document.addEventListener("contextmenu", (event) => event.preventDefault());
 function createButtons(url) {
   let td = document.createElement("td");
   let button = document.createElement("button");
@@ -56,6 +57,7 @@ function initTable(data) {
 function sortTableByColumn(table, column, asc = true) {
   const dirModifier = asc ? 1 : -1;
   const tBody = table.tBodies[0];
+
   const rows = Array.from(tBody.querySelectorAll("tr"));
 
   // Sort each row
@@ -90,12 +92,22 @@ function sortTableByColumn(table, column, asc = true) {
     .classList.toggle("th-sort-desc", !asc);
 }
 
+async function csv() {
+  results = await eel.resultsToCsv()();
+  document.querySelector(".csv").disabled = true;
+  document.querySelector(".csv").style.opacity = 0.1;
+}
+
 async function work() {
   let results = null;
 
   document.querySelector(".submit").disabled = true;
+  document.querySelector(".submit").style.opacity = 0.1;
+  document.querySelector(".csv").style.opacity = 0.1;
   results = await eel.start_scrapping()();
   document.querySelector(".submit").disabled = false;
+  document.querySelector(".submit").style.opacity = 1;
+  document.querySelector(".csv").style.opacity = 1;
   console.log(results);
   hideLoader();
   initTable(results);

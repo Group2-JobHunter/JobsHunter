@@ -1,4 +1,4 @@
-//document.addEventListener("contextmenu", (event) => event.preventDefault());
+document.addEventListener("contextmenu", (event) => event.preventDefault());
 resizeTo(screen.width, screen.height);
 
 let searchData = {

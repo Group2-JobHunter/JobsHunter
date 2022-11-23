@@ -14,7 +14,7 @@ import datetime
 class Bayt(WebScraper):
 
     def __init__(self, job_title,country,skill):
-        super().__init__(True)
+        super().__init__(False)
         self.scroll = 30
         self.jb_title=job_title
         self.country=country
@@ -37,6 +37,7 @@ class Bayt(WebScraper):
 
         job_name = re.sub(r'\s+', '-', self.jb_title)
         url = f'https://www.bayt.com/en/{self.country}/jobs/{job_name}-jobs/?options%5Bsort%5D%5B%5D=d'
+        
         self.driver.get(url)
 
 
@@ -113,12 +114,15 @@ class Bayt(WebScraper):
 
                         else:
                             percatnage=('N/A')
-                        city , country = location.text.split(',')[0] , location.text.split(',')[1]
+                        if ',' in location.text:
+                            city , country = location.text.split(',')[0] , location.text.split(',')[1]
+                        else:
+                            city , country = 'Amman', self.country
 
                         
                         date = self.timeToDate(date.text)
                         job = ("Bayt",title.text,company.text,date,city, country,percatnage,link)
-                         
+                        
                         self.filteredJobs.append(job)
 
                         

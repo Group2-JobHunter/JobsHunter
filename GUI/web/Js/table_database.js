@@ -1,3 +1,4 @@
+document.addEventListener("contextmenu", (event) => event.preventDefault());
 function createButtons(url) {
   let td = document.createElement("td");
   let button = document.createElement("button");
@@ -13,6 +14,12 @@ function createButtons(url) {
 function hideLoader() {
   let loaderContainer = document.querySelector(".loaderContainer");
   loaderContainer.style.display = "none";
+}
+
+async function csv() {
+  results = await eel.resultsToCsv()();
+  document.querySelector(".csv").disabled = true;
+  document.querySelector(".csv").style.opacity = 0.1;
 }
 
 function initTable(data) {
@@ -53,12 +60,28 @@ function initTable(data) {
   });
 }
 
+function sortMatching(a, b, asc) {
+  let x = a.split(" ")[0];
+  let y = b.split(" ")[0];
+
+  return (parseInt(x) - parseInt(y)) * asc;
+}
+
+function sortByDate(a, b, asc) {
+  if (a < b) {
+    return 1 * asc;
+  }
+  if (a > b) {
+    return -1 * asc;
+  }
+  return 0;
+}
+
 function sortTableByColumn(table, column, asc = true) {
   const dirModifier = asc ? 1 : -1;
   const tBody = table.tBodies[0];
   const rows = Array.from(tBody.querySelectorAll("tr"));
 
-  // Sort each row
   const sortedRows = rows.sort((a, b) => {
     const aColText = a
       .querySelector(`td:nth-child(${column + 1})`)
@@ -66,8 +89,12 @@ function sortTableByColumn(table, column, asc = true) {
     const bColText = b
       .querySelector(`td:nth-child(${column + 1})`)
       .textContent.trim();
-
-    return aColText > bColText ? 1 * dirModifier : -1 * dirModifier;
+    if (column == 6) {
+      a = aColText.split(" ")[0];
+      b = bColText.split(" ")[0];
+      return sortMatching(a, b, dirModifier);
+    } else if (column == 3) return sortByDate(aColText, bColText, dirModifier);
+    else return aColText > bColText ? 1 * dirModifier : -1 * dirModifier;
   });
 
   // Remove all existing TRs from the table

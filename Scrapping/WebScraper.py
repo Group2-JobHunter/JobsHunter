@@ -32,7 +32,7 @@ class WebScraper(ABC):
         
 
         self.page = ""
-        self.extractedJobs = []
+        self.extractedJobs = {}
         self.filteredJobs = []
         self.parsedJobs = []
 
